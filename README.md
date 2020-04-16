@@ -1,5 +1,7 @@
 # M5 LCD Emulator
 
+### 🚧 Some ```M5.Lcd``` function NOT yet implemented! 🚧
+
 ## Environment
 1. Download OpenCV from [here](https://opencv.org/releases/).
 2. Extract to install directory (exp. ```C:\```).

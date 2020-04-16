@@ -1,5 +1,9 @@
 #include "main.hpp"
 
+
+/* M5Stack CODE BEGIN */
+
+
 void setup() {
 	M5.Lcd.printf("Hello World!");
 	M5.Lcd.setCursor(0, 15);
@@ -10,6 +14,10 @@ void setup() {
 void loop() {
 	
 }
+
+
+/* M5Stack CODE END */
+
 
 
 int main(void) {
