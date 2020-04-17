@@ -41,3 +41,7 @@ void loop() {
     - Open ```VC++ directory``` > ```Include directory``` and add ```C:\opencv\build\include```.
     - Open ```VC++ directory``` > ```Library directory``` and add ```C:\opencv\build\x64\vc14\lib```.
     - Open ```Linker``` > ```Input``` > ```Additional dependent files``` and add ```opencv_worldxxxd.lib```. (xxx is version, look at opencv dir)
+
+## Reference
+- [【動画解説付き】OpenCV C++版をWindows10にインストールする方法【Visual Studio 2017】](https://qiita.com/shiyotsuki/items/3d30df275dee67d7c41f)
+- [m5-docs/lcd.md at master · m5stack/m5-docs · GitHub](https://github.com/m5stack/m5-docs/blob/master/docs/ja/api/lcd.md)
