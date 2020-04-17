@@ -1,6 +1,8 @@
 # M5 LCD Emulator
 
-### 🚧 Some ```M5.Lcd``` function NOT yet implemented! 🚧
+## 🚧 Some ```M5.Lcd``` function NOT yet implemented! 🚧
+
+![image](https://github.com/takkaO/M5_LCD_Emulator/blob/image/image.PNG?raw=true)
 
 ## Require
 - OpenCV (Version 4.3.0 Recommended)
