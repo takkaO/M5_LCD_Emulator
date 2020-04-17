@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "M5Emulator.hpp"
+#include "M5Stack.h"
 
 using namespace cv;
 using namespace std;

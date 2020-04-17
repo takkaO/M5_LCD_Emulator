@@ -5,6 +5,11 @@
 
 
 void setup() {
+	for (int i = 0; i < COLORS_NUM; i++) {
+		M5.Lcd.fillScreen(COLORS[i]);
+		delay(1000);
+	}
+	M5.Lcd.fillScreen(BLACK);
 	M5.Lcd.printf("Hello World!");
 	M5.Lcd.setCursor(0, 15);
 	M5.Lcd.setTextSize(2);
@@ -21,7 +26,7 @@ void loop() {
 
 
 int main(void) {
-	
+
 	setup();
 	M5.Lcd.updateDisplay();
 
