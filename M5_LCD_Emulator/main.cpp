@@ -2,7 +2,7 @@
 
 
 /* M5Stack CODE BEGIN */
-
+#include "M5Stack.h"
 
 void setup() {
 	for (int i = 0; i < COLORS_NUM; i++) {
@@ -14,6 +14,7 @@ void setup() {
 	M5.Lcd.setCursor(0, 15);
 	M5.Lcd.setTextSize(2);
 	M5.Lcd.printf("Hello World!");
+
 }
 
 void loop() {

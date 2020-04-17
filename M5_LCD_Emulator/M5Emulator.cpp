@@ -107,13 +107,15 @@ void Emu_M5_Display::drawString(const char* str, int32_t poX, int32_t poY) {
 	/* There is a slight deviation in this coordinate! */
 	int base_line;
 	int thickness = 1;
-	Point org = Point(poX, poY + str_display_offset);
+	int str_display_offset;
 	Scalar black = transposeRGB2BGR(convert16Int2Scalar(BLACK));
 	Scalar white = transposeRGB2BGR(convert16Int2Scalar(WHITE));
 
 	Size size = getTextSize(str, FONT_HERSHEY_SIMPLEX, font_size, thickness, &base_line);
+	str_display_offset = size.height;
+	Point org = Point(poX, poY + str_display_offset);
 	base_line += thickness;
-	rectangle(img, org + Point(0, base_line - 3), org + Point(size.width, -size.height), black, FILLED);
+	rectangle(img, org + Point(0, base_line), org + Point(size.width, -size.height), black, FILLED);
 	putText(img, str, org, FONT_HERSHEY_SIMPLEX, font_size, white);
 }
 
@@ -121,15 +123,12 @@ void Emu_M5_Display::setTextSize(uint8_t size) {
 	switch (size) {
 	case 1:
 		font_size = 0.3;
-		str_display_offset = 5;
 		break;
 	case 2:
 		font_size = 0.45;
-		str_display_offset = 12;
 		break;
 	default:
 		font_size = 0.3;
-		str_display_offset = 5;
 		break;
 	}
 }

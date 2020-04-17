@@ -66,7 +66,6 @@ private:
 	uint16_t cursor_x = 0;
 	uint16_t cursor_y = 0;
 	double font_size = 0.3;
-	int str_display_offset = 10;
 	Mat img;
 };
 
