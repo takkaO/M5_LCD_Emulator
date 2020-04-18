@@ -67,7 +67,9 @@ public:
 	void wakeup(void);
 	void setBrightness(uint8_t brightness);
 	void progressBar(int x, int y, int w, int h, uint8_t val);
+	uint16_t color565(uint8_t r, uint8_t g, uint8_t b);
 	void fillScreen(uint16_t color);
+	void setTextColor(uint16_t color, uint16_t backgroundcolor = TFT_BLACK);
 	void drawPixel(int16_t x, int16_t y, uint16_t color);
 	void drawFastVLine(int32_t x, int32_t y, int32_t h, uint32_t color = WHITE);
 	void drawFastHLine(int32_t x, int32_t y, int32_t h, uint32_t color = WHITE);
@@ -95,6 +97,8 @@ private:
 	uint16_t cursor_x = 0;
 	uint16_t cursor_y = 0;
 	double font_size = 0.3;
+	uint16_t font_color = WHITE;
+	uint16_t font_background_color = TFT_BLACK;
 	bool is_sleep_mode = false;
 	Mat img;
 };

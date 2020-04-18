@@ -8,7 +8,7 @@
 - OpenCV (Version 4.3.0 Recommended)
 - VisualStudio 2019 (Windows)
 
-## Sample code (show ```mail.cpp```)
+## Sample code (show ```main.cpp```)
 ```c++
 /* M5Stack CODE BEGIN */
 #include "M5Stack.h"

@@ -38,11 +38,20 @@ void Emu_M5_Display::progressBar(int x, int y, int w, int h, uint8_t val) {
 	cout << "\"progressBar\" is NOT yet implemented!" << endl;
 }
 
+uint16_t Emu_M5_Display::color565(uint8_t r, uint8_t g, uint8_t b) {
+	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+}
+
 void Emu_M5_Display::fillScreen(uint16_t color) {
 	Point pt1 = Point(0, 0);
 	Point pt2 = Point(LCD_WIDTH, LCD_HEIGHT);
 	Scalar _color = transposeRGB2BGR(convert16Int2Scalar(color));
 	rectangle(img, pt1, pt2, _color, FILLED);
+}
+
+void Emu_M5_Display::setTextColor(uint16_t color, uint16_t backgroundcolor) {
+	font_color = color;
+	font_background_color = backgroundcolor;
 }
 
 void Emu_M5_Display::drawPixel(int16_t x, int16_t y, uint16_t color) {
@@ -139,15 +148,15 @@ void Emu_M5_Display::drawString(const char* str, int32_t poX, int32_t poY) {
 	int base_line;
 	int thickness = 1;
 	int str_display_offset;
-	Scalar black = transposeRGB2BGR(convert16Int2Scalar(BLACK));
-	Scalar white = transposeRGB2BGR(convert16Int2Scalar(WHITE));
+	Scalar fbg_color = transposeRGB2BGR(convert16Int2Scalar(BLACK));
+	Scalar f_color = transposeRGB2BGR(convert16Int2Scalar(WHITE));
 
 	Size size = getTextSize(str, FONT_HERSHEY_SIMPLEX, font_size, thickness, &base_line);
 	str_display_offset = size.height;
 	Point org = Point(poX, poY + str_display_offset);
 	base_line += thickness;
-	rectangle(img, org + Point(0, base_line), org + Point(size.width, -size.height), black, FILLED);
-	putText(img, str, org, FONT_HERSHEY_SIMPLEX, font_size, white);
+	rectangle(img, org + Point(0, base_line), org + Point(size.width, -size.height), fbg_color, FILLED);
+	putText(img, str, org, FONT_HERSHEY_SIMPLEX, font_size, f_color);
 }
 
 void Emu_M5_Display::setTextSize(uint8_t size) {
