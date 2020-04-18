@@ -2,7 +2,11 @@
 
 #include <iostream>
 #include <cstdarg>
+#ifndef LINUX
 #include <opencv2\opencv.hpp>
+#else
+#include <opencv2/opencv.hpp>
+#endif
 
 using namespace cv;
 using namespace std;
