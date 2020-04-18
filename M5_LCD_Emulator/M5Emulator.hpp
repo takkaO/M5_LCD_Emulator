@@ -2,11 +2,8 @@
 
 #include <iostream>
 #include <cstdarg>
-#ifndef LINUX
-#include <opencv2\opencv.hpp>
-#else
 #include <opencv2/opencv.hpp>
-#endif
+
 
 using namespace cv;
 using namespace std;
@@ -32,16 +29,44 @@ const uint16_t WHITE       = 0xFFFF;      /* 255, 255, 255 */
 const uint16_t ORANGE      = 0xFD20;      /* 255, 165,   0 */
 const uint16_t GREENYELLOW = 0xAFE5;      /* 173, 255,  47 */
 const uint16_t PINK        = 0xF81F;
+
+// from In_eSPI.h
+const uint16_t TFT_BLACK       = BLACK;
+const uint16_t TFT_NAVY        = NAVY;
+const uint16_t TFT_DARKGREEN   = DARKGREEN;
+const uint16_t TFT_DARKCYAN    = DARKCYAN;
+const uint16_t TFT_MAROON      = MAROON;
+const uint16_t TFT_PURPLE      = PURPLE;
+const uint16_t TFT_OLIVE       = OLIVE;
+const uint16_t TFT_LIGHTGREY   = LIGHTGREY;
+const uint16_t TFT_DARKGREY    = DARKGREY;
+const uint16_t TFT_BLUE        = BLUE;
+const uint16_t TFT_GREEN       = GREEN;
+const uint16_t TFT_CYAN        = CYAN;
+const uint16_t TFT_RED         = RED;
+const uint16_t TFT_MAGENTA     = MAGENTA;
+const uint16_t TFT_YELLOW      = YELLOW;
+const uint16_t TFT_WHITE       = WHITE;
+const uint16_t TFT_ORANGE      = ORANGE;
+const uint16_t TFT_GREENYELLOW = GREENYELLOW;
+const uint16_t TFT_PINK        = PINK;
+
 const uint16_t COLORS[] = { BLACK,NAVY, DARKGREEN, DARKCYAN, MAROON, 
                             PURPLE, OLIVE, LIGHTGREY, DARKGREY, BLUE,
 	                        GREEN, CYAN, RED, MAGENTA, YELLOW, WHITE, 
 	                        ORANGE, GREENYELLOW, PINK };
 const uint8_t COLORS_NUM = sizeof(COLORS) / sizeof(uint16_t);
 
+
 class Emu_M5_Display {
 public:
 	Emu_M5_Display();
 	void updateDisplay(int delay_ms = 1);
+	void begin(void);
+	void sleep(void);
+	void wakeup(void);
+	void setBrightness(uint8_t brightness);
+	void progressBar(int x, int y, int w, int h, uint8_t val);
 	void fillScreen(uint16_t color);
 	void drawPixel(int16_t x, int16_t y, uint16_t color);
 	void drawFastVLine(int32_t x, int32_t y, int32_t h, uint32_t color = WHITE);
@@ -70,6 +95,7 @@ private:
 	uint16_t cursor_x = 0;
 	uint16_t cursor_y = 0;
 	double font_size = 0.3;
+	bool is_sleep_mode = false;
 	Mat img;
 };
 
