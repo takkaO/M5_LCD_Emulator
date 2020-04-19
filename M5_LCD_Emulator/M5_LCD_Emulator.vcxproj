@@ -141,11 +141,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="glcdfont.c" />
     <ClCompile Include="M5Emulator.cpp" />
     <ClCompile Include="M5Stack.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fonts.h" />
     <ClInclude Include="M5Emulator.hpp" />
     <ClInclude Include="M5Stack.h" />
     <ClInclude Include="main.hpp" />

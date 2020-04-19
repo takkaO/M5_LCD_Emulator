@@ -42,6 +42,14 @@ uint16_t Emu_M5_Display::color565(uint8_t r, uint8_t g, uint8_t b) {
 	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
 }
 
+uint32_t Emu_M5_Display::color16to24(uint16_t color565) {
+	uint8_t r = (color565 >> 8) & 0xF8; r |= (r >> 5);
+	uint8_t g = (color565 >> 3) & 0xFC; g |= (g >> 6);
+	uint8_t b = (color565 << 3) & 0xF8; b |= (b >> 5);
+
+	return ((uint32_t)r << 16) | ((uint32_t)g << 8) | ((uint32_t)b << 0);
+}
+
 void Emu_M5_Display::fillScreen(uint16_t color) {
 	Point pt1 = Point(0, 0);
 	Point pt2 = Point(LCD_WIDTH, LCD_HEIGHT);

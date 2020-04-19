@@ -3,7 +3,12 @@
 #include <iostream>
 #include <cstdarg>
 #include <opencv2/opencv.hpp>
-
+//#define DEV
+#ifdef DEV
+extern "C" {
+	#include "fonts.h"
+}
+#endif
 
 using namespace cv;
 using namespace std;
@@ -90,6 +95,7 @@ public:
 
 private:
 	Scalar convert16Int2Scalar(uint16_t color);
+	uint32_t color16to24(uint16_t color565);	// use this
 	Scalar transposeRGB2BGR(Scalar color);
 
 	const int LCD_HEIGHT = 240;
