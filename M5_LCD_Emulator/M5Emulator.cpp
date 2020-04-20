@@ -1,5 +1,8 @@
 #include "M5Emulator.hpp"
 
+using namespace cv;
+using namespace std;
+
 Emu_M5_Display::Emu_M5_Display() {
 	img = Mat::zeros(Size(LCD_WIDTH, LCD_HEIGHT), CV_8UC3);
 }
@@ -201,6 +204,69 @@ void Emu_M5_Display::printf(const char *fmt, ...) {
 	va_end(ap);
 
 	drawString(s, cursor_x, cursor_y);
+}
+
+void Emu_M5_Display::drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size) {
+
+	bool fillbg = (bg != color);
+	
+	if ((size == 1) && fillbg) {
+		uint8_t column[6];
+		uint8_t mask = 0x1;
+		for (uint8_t i = 0; i < 5; i++) {
+			column[i] = font[(c * 5) + i];
+		}
+		column[5] = 0;
+
+		uint8_t xp = x;
+		uint8_t yp = y;
+		for (uint8_t j = 0; j < 8; j++) {
+			xp = x;
+			for (uint8_t k = 0; k < 5; k++) {
+				if (column[k] & mask) {
+					drawPixel(xp, yp, color);
+				}
+				else {
+					drawPixel(xp, yp, bg);
+				}
+				xp++;
+			}
+			mask <<= 1;
+			yp++;
+		}
+	}
+	else {
+		for (int8_t i = 0; i < 6; i++) {
+			uint8_t line;
+			if (i == 5) {
+				line = 0x0;
+			}
+			else {
+				line = font[(c * 5) + i];
+			}
+
+			if (size == 1) { // default size
+				for (int8_t j = 0; j < 8; j++) {
+					if (line & 0x1) {
+						drawPixel(x + i, y + j, color);
+					}
+					line >>= 1;
+				}
+			}
+			else { // big size
+				for (uint8_t j = 0; j < 8; j++) {
+					if (line & 0x1) {
+						fillRect(x + (i * size), y + (j * size), size, size, color);
+					}
+					else if (fillbg) {
+						fillRect(x + (i * size), y + (j * size), size, size, bg);
+					}
+					line >>= 1;
+				}
+			}
+
+		}
+	}
 }
 
 M5_Emulator M5;

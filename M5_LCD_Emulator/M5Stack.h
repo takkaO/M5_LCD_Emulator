@@ -12,8 +12,3 @@
 #include "M5Emulator.hpp"
 
 void delay(unsigned int ms);
-
-
-#ifdef DEV
-void font_test();
-#endif

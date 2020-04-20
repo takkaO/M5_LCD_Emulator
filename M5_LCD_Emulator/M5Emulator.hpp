@@ -2,16 +2,13 @@
 
 #include <iostream>
 #include <cstdarg>
+#include <bitset>
 #include <opencv2/opencv.hpp>
-//#define DEV
-#ifdef DEV
 extern "C" {
 	#include "fonts.h"
 }
-#endif
 
 using namespace cv;
-using namespace std;
 
 
 // from ILI9341_Defines.h
@@ -92,6 +89,7 @@ public:
 	void setCursor(uint16_t x, uint16_t y);
 	void print(const char *fmt);
 	void printf(const char *fmt, ...);
+	void drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size);
 
 private:
 	Scalar convert16Int2Scalar(uint16_t color);
