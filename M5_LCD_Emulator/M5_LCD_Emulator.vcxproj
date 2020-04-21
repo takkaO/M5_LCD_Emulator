@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fonts.cpp" />
     <ClCompile Include="glcdfont.c" />
     <ClCompile Include="M5Emulator.cpp" />
     <ClCompile Include="M5Stack.cpp" />

@@ -90,6 +90,14 @@ public:
 	void print(const char *fmt);
 	void printf(const char *fmt, ...);
 	void drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size);
+	int16_t drawChar(uint16_t uniCode, int32_t x, int32_t y, uint8_t font);
+	int16_t textWidth(const char *string, uint8_t font);
+	int16_t drawString(const char *string, int32_t poX, int32_t poY, uint8_t font);
+
+	//
+	uint16_t width();
+	uint16_t height();
+	uint16_t decodeUTF8(uint8_t* buf, uint16_t* index, uint16_t remaining);
 
 private:
 	Scalar convert16Int2Scalar(uint16_t color);
@@ -98,8 +106,8 @@ private:
 
 	const int LCD_HEIGHT = 240;
 	const int LCD_WIDTH = 320;
-	uint16_t cursor_x = 0;
-	uint16_t cursor_y = 0;
+	uint16_t _cursor_x = 0;
+	uint16_t _cursor_y = 0;
 	double font_size = 0.3;
 	uint16_t font_color = WHITE;
 	uint16_t font_background_color = TFT_BLACK;
