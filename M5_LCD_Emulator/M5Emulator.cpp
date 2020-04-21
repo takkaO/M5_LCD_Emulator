@@ -163,19 +163,7 @@ void Emu_M5_Display::fillEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry,
 }
 
 void Emu_M5_Display::drawString(const char* str, int32_t poX, int32_t poY) {
-	/* There is a slight deviation in this coordinate! */
-	int base_line;
-	int thickness = 1;
-	int str_display_offset;
-	Scalar fbg_color = transposeRGB2BGR(convert16Int2Scalar(BLACK));
-	Scalar f_color = transposeRGB2BGR(convert16Int2Scalar(WHITE));
-
-	Size size = getTextSize(str, FONT_HERSHEY_SIMPLEX, font_size, thickness, &base_line);
-	str_display_offset = size.height;
-	Point org = Point(poX, poY + str_display_offset);
-	base_line += thickness;
-	rectangle(img, org + Point(0, base_line), org + Point(size.width, -size.height), fbg_color, FILLED);
-	putText(img, str, org, FONT_HERSHEY_SIMPLEX, font_size, f_color);
+	drawString(str, poX, poY, 1);
 }
 
 void Emu_M5_Display::setTextSize(uint8_t size) {
@@ -216,7 +204,7 @@ void Emu_M5_Display::printf(const char *fmt, ...) {
 }
 
 void Emu_M5_Display::drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size) {
-
+	//cout << int(c) << endl;
 	bool fillbg = (bg != color);
 	
 	if ((size == 1) && fillbg) {

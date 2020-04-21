@@ -10,11 +10,11 @@ void setup() {
 		delay(1000);
 	}
 	M5.Lcd.fillScreen(BLACK);
-	M5.Lcd.drawString("Hello World!", 0, 0, 1);
+	M5.Lcd.print("Hello World!");
 	M5.Lcd.setCursor(0, 15);
 	M5.Lcd.setTextSize(2);
-	M5.Lcd.drawString("Hello World!", 100, 100, 1);
-
+	M5.Lcd.print("Hello World!");
+	
 }
 
 void loop() {
