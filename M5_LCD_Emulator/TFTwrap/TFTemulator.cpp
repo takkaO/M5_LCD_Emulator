@@ -439,10 +439,18 @@ void TFT_Emulator::printf(const char *fmt, ...) {
 	}
 
 	char *token, *next_token;
+#ifdef _MSC_VER
 	token = strtok_s(s, "\n", &next_token);
+#else
+	token = strtok_r(s, "\n", &next_token);
+#endif
 	while (token != NULL) {
 		drawString(token, cursor_x, cursor_y);
+#ifdef _MSC_VER
 		token = strtok_s(NULL, "\n", &next_token);
+#else
+		token = strtok_r(NULL, "\n", &next_token);
+#endif
 		if (token != NULL) {
 			cursor_y += cheight;
 		}

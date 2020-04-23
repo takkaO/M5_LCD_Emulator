@@ -1,7 +1,7 @@
 # sudo apt install libopencv-dev opencv-data
 
 PROG=m5hello
-SRCS=main.cpp M5Stack.cpp M5Emulator.cpp
+SRCS=main.cpp M5Stack.cpp M5Emulator.cpp ./TFTwrap/TFTemulator.cpp ./Fonts/glcdfont.c
 CVLIBS=-lopencv_core -lopencv_highgui -lopencv_imgproc
 
 OBJS=$(SRCS:.cpp=.o)
