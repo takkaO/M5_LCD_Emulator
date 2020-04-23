@@ -3,6 +3,8 @@
 #ifndef FONT5X7_H
 #define FONT5X7_H
 
+#include "fonts.h"
+
 // Standard ASCII 5x7 font
 
 const unsigned char font[] = {

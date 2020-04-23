@@ -141,17 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fonts.cpp" />
-    <ClCompile Include="glcdfont.c" />
+    <ClCompile Include="Fonts\glcdfont.c" />
     <ClCompile Include="M5Emulator.cpp" />
     <ClCompile Include="M5Stack.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TFTwrap\TFTemulator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fonts.h" />
+    <ClInclude Include="Fonts\fonts.h" />
     <ClInclude Include="M5Emulator.hpp" />
     <ClInclude Include="M5Stack.h" />
     <ClInclude Include="main.hpp" />
+    <ClInclude Include="TFTwrap\TFTemulator.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

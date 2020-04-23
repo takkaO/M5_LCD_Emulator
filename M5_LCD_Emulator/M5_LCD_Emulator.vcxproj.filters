@@ -24,10 +24,10 @@
     <ClCompile Include="M5Stack.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="glcdfont.c">
+    <ClCompile Include="Fonts\glcdfont.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="fonts.cpp">
+    <ClCompile Include="TFTwrap\TFTemulator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,10 @@
     <ClInclude Include="M5Stack.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="fonts.h">
+    <ClInclude Include="TFTwrap\TFTemulator.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Fonts\fonts.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

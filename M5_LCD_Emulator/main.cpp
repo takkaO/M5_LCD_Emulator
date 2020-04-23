@@ -9,12 +9,12 @@ void setup() {
 		M5.Lcd.fillScreen(COLORS[i]);
 		delay(1000);
 	}
+
 	M5.Lcd.fillScreen(BLACK);
-	M5.Lcd.print("Hello World!");
-	M5.Lcd.setCursor(0, 15);
-	M5.Lcd.setTextSize(2);
-	M5.Lcd.print("Hello World!");
-	
+	for (int i = 1; i < 8; i++) {
+		M5.Lcd.setTextSize(i);
+		M5.Lcd.print("Hello World\n");
+	}
 }
 
 void loop() {
