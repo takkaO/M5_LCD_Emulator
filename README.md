@@ -1,6 +1,6 @@
 # M5 LCD Emulator
 
-## 🚧 Some ```M5.Lcd``` function NOT yet implemented! 🚧
+## 🚧 Some ```M5.Lcd``` function NOT yet implemented! ([Look here](https://github.com/takkaO/M5_LCD_Emulator/blob/develop/STATUS.md)) 🚧
 
 ![image](https://github.com/takkaO/M5_LCD_Emulator/blob/image/image.PNG?raw=true)
 
