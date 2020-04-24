@@ -2,7 +2,7 @@
 
 |function|status|
 |:---:|:---:|
-|begin()|❌|
+|begin()|✔|
 |sleep()|✔|
 |wakeup()|✔|
 |setBrightness()|❌|
