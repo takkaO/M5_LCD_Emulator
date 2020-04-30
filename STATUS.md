@@ -25,8 +25,8 @@
 |fillTriangle()|✔|
 |drawRect()|✔|
 |fillRect()|✔|
-|drawRoundRect()|❌|
-|fillRoundRect()|❌|
+|drawRoundRect()|✔|
+|fillRoundRect()|✔|
 |drawEllipse()|✔|
 |fillEllipse()|✔|
 |color565()|✔|

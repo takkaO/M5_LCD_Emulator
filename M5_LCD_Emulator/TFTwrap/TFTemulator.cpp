@@ -53,11 +53,11 @@ uint16_t TFT_Emulator::decodeUTF8(uint8_t* buf, uint16_t* index, uint16_t remain
 	return c; // fall-back to extended ASCII
 }
 
-int16_t TFT_Emulator::textWidth(const char *string) {
-	return textWidth(string, textfont);
+int16_t TFT_Emulator::textWidth(const char *str) {
+	return textWidth(str, textfont);
 }
 
-int16_t TFT_Emulator::textWidth(const char *string, uint8_t font) {
+int16_t TFT_Emulator::textWidth(const char *str, uint8_t font) {
 	int32_t str_width = 0;
 	//uint16_t uniCode = 0;
 
@@ -74,7 +74,7 @@ int16_t TFT_Emulator::textWidth(const char *string, uint8_t font) {
 #endif
 		{
 #ifdef LOAD_GLCD
-			while (*string++) str_width += 6;
+			while (*str++) str_width += 6;
 #endif
 		}
 	}
@@ -187,13 +187,25 @@ void TFT_Emulator::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t
 }
 
 void TFT_Emulator::drawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color) {
-	/* No implemented now! */
-	cout << "\"drawRoundRect\" is NOT yet implemented!" << endl;
+	// smarter version
+	drawFastHLine(x + r, y, w - r - r, color); // Top
+	drawFastHLine(x + r, y + h - 1, w - r - r, color); // Bottom
+	drawFastVLine(x, y + r, h - r - r, color); // Left
+	drawFastVLine(x + w - 1, y + r, h - r - r, color); // Right
+	// draw four corners
+	drawCircleHelper(x + r, y + r, r, 1, color);
+	drawCircleHelper(x + w - r - 1, y + r, r, 2, color);
+	drawCircleHelper(x + w - r - 1, y + h - r - 1, r, 4, color);
+	drawCircleHelper(x + r, y + h - r - 1, r, 8, color);
 }
 
 void TFT_Emulator::fillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color) {
-	/* No implemented now! */
-	cout << "\"fillRoundRect\" is NOT yet implemented!" << endl;
+	// smarter version
+	fillRect(x, y + r, w, h - r - r, color);
+
+	// draw four corners
+	fillCircleHelper(x + r, y + h - r - 1, r, 1, w - r - r - 1, color);
+	fillCircleHelper(x + r, y + r, r, 2, w - r - r - 1, color);
 }
 
 void TFT_Emulator::drawEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry, uint16_t color) {
@@ -210,6 +222,72 @@ void TFT_Emulator::fillEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry, u
 	Scalar _color = transposeRGB2BGR(color);
 
 	ellipse(img, center, axes, 0, 0, 360, _color, FILLED);
+}
+
+void TFT_Emulator::drawCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, uint32_t color)
+{
+	int32_t f = 1 - r;
+	int32_t ddF_x = 1;
+	int32_t ddF_y = -2 * r;
+	int32_t x = 0;
+
+	while (x < r) {
+		if (f >= 0) {
+			r--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+		if (cornername & 0x4) {
+			drawPixel(x0 + x, y0 + r, color);
+			drawPixel(x0 + r, y0 + x, color);
+		}
+		if (cornername & 0x2) {
+			drawPixel(x0 + x, y0 - r, color);
+			drawPixel(x0 + r, y0 - x, color);
+		}
+		if (cornername & 0x8) {
+			drawPixel(x0 - r, y0 + x, color);
+			drawPixel(x0 - x, y0 + r, color);
+		}
+		if (cornername & 0x1) {
+			drawPixel(x0 - r, y0 - x, color);
+			drawPixel(x0 - x, y0 - r, color);
+		}
+	}
+}
+
+void TFT_Emulator::fillCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, int32_t delta, uint32_t color)
+{
+	int32_t f = 1 - r;
+	int32_t ddF_x = 1;
+	int32_t ddF_y = -r - r;
+	int32_t y = 0;
+
+	delta++;
+	while (y < r) {
+		if (f >= 0) {
+			r--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		y++;
+		//x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		if (cornername & 0x1)
+		{
+			drawFastHLine(x0 - r, y0 + y, r + r + delta, color);
+			drawFastHLine(x0 - y, y0 + r, y + y + delta, color);
+		}
+		if (cornername & 0x2) {
+			drawFastHLine(x0 - r, y0 - y, r + r + delta, color); // 11995, 1090
+			drawFastHLine(x0 - y, y0 - r, y + y + delta, color);
+		}
+	}
 }
 
 /* --------------------------------- */
@@ -311,23 +389,23 @@ int16_t TFT_Emulator::drawChar(uint16_t uniCode, int32_t x, int32_t y, uint8_t f
 }
 
 
-int16_t TFT_Emulator::drawString(const String& string, int32_t poX, int32_t poY, uint8_t font) {
-	return drawString(string.c_str(), poX, poY, font);
+int16_t TFT_Emulator::drawString(const string& str, int32_t poX, int32_t poY, uint8_t font) {
+	return drawString(str.c_str(), poX, poY, font);
 
 }
 
-int16_t TFT_Emulator::drawString(const String& string, int32_t poX, int32_t poY) {
-	return drawString(string.c_str(), poX, poY, textfont);
+int16_t TFT_Emulator::drawString(const string& str, int32_t poX, int32_t poY) {
+	return drawString(str.c_str(), poX, poY, textfont);
 }
 
-int16_t TFT_Emulator::drawString(const char* string, int32_t poX, int32_t poY) {
-	return drawString(string, poX, poY, textfont);
+int16_t TFT_Emulator::drawString(const char* str, int32_t poX, int32_t poY) {
+	return drawString(str, poX, poY, textfont);
 }
 
-int16_t TFT_Emulator::drawString(const char* string, int32_t poX, int32_t poY, uint8_t font) {
+int16_t TFT_Emulator::drawString(const char* str, int32_t poX, int32_t poY, uint8_t font) {
 	int16_t sumX = 0;
 	uint8_t padding = 1, baseline = 0;
-	uint16_t cwidth = textWidth(string, font);
+	uint16_t cwidth = textWidth(str, font);
 	uint16_t cheight = 8 * textsize;
 
 #ifdef LOAD_GFXFF
@@ -405,14 +483,14 @@ int16_t TFT_Emulator::drawString(const char* string, int32_t poX, int32_t poY, u
 #ifdef LOAD_GFXFF
 	// Not yet implemented!
 #endif
-	uint16_t len = strlen(string);
+	uint16_t len = strlen(str);
 	uint16_t n = 0;
 #ifdef SMOOTH_FONT
 	// Not yet implemented!
 #endif
 	{
 		while (n < len) {
-			uint16_t uniCode = decodeUTF8((uint8_t*)string, &n, len - n);
+			uint16_t uniCode = decodeUTF8((uint8_t*)str, &n, len - n);
 			sumX += drawChar(uniCode, poX + sumX, poY, font);
 		}
 	}

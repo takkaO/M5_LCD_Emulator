@@ -8,7 +8,7 @@ extern "C" {
 	#include "../Fonts/fonts.h"
 }
 
-using namespace cv;
+using namespace std;
 
 #define TL_DATUM 0 // Top left (default)
 #define TC_DATUM 1 // Top centre
@@ -109,15 +109,17 @@ public:
 	void fillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color = WHITE);
 	void drawEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry, uint16_t color = WHITE);
 	void fillEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry, uint16_t color = WHITE);
-	
+	void drawCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, uint32_t color);
+	void fillCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, int32_t delta, uint32_t color);
+
 	/* draw character function */
 	void drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size);
 	int16_t drawChar(uint16_t uniCode, int32_t x, int32_t y);
 	int16_t drawChar(uint16_t uniCode, int32_t x, int32_t y, uint8_t font);
-	int16_t drawString(const String& string, int32_t poX, int32_t poY, uint8_t font);
-	int16_t drawString(const String& string, int32_t poX, int32_t poY);
-	int16_t drawString(const char* string, int32_t poX, int32_t poY);
-	int16_t drawString(const char* string, int32_t poX, int32_t poY, uint8_t font);
+	int16_t drawString(const string& str, int32_t poX, int32_t poY, uint8_t font);
+	int16_t drawString(const string& str, int32_t poX, int32_t poY);
+	int16_t drawString(const char* str, int32_t poX, int32_t poY);
+	int16_t drawString(const char* str, int32_t poX, int32_t poY, uint8_t font);
 	void printf(const char *fmt, ...);
 	void print(const char* fmt);
 
@@ -135,14 +137,14 @@ public:
 
 
 protected:
-	Scalar convert16Int2Scalar(uint16_t color);
+	cv::Scalar convert16Int2Scalar(uint16_t color);
 
-	Scalar transposeRGB2BGR(uint16_t color);
-	Scalar transposeRGB2BGR(Scalar color);
+	cv::Scalar transposeRGB2BGR(uint16_t color);
+	cv::Scalar transposeRGB2BGR(cv::Scalar color);
 
 
 	uint32_t _width   = 0;
 	uint32_t _height  = 0;
 
-	Mat img;
+	cv::Mat img;
 };
