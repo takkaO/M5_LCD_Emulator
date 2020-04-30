@@ -87,7 +87,8 @@ public:
 	uint16_t width();
 	uint16_t height();
 	uint16_t decodeUTF8(uint8_t* buf, uint16_t* index, uint16_t remaining);
-	int16_t textWidth(const char* string, uint8_t font);
+	int16_t textWidth(const char *string);
+	int16_t textWidth(const char *string, uint8_t font);
 	uint32_t color16to24(uint16_t color);
 	uint16_t color565(uint8_t r, uint8_t g, uint8_t b);
 	void setTextColor(uint16_t color, uint16_t backgroundcolor = TFT_BLACK);
@@ -121,6 +122,18 @@ public:
 	void print(const char* fmt);
 
 
+	/* variables */
+	uint8_t textfont = 1;
+	uint16_t textcolor = WHITE;
+	uint16_t textbgcolor = TFT_BLACK;
+
+	uint8_t textsize = 1;
+	uint8_t textdatum = TL_DATUM;
+	int32_t cursor_x = 0;
+	int32_t cursor_y = 0;
+	int32_t padX = 0;         // No padding
+
+
 protected:
 	Scalar convert16Int2Scalar(uint16_t color);
 
@@ -130,15 +143,6 @@ protected:
 
 	uint32_t _width   = 0;
 	uint32_t _height  = 0;
-	uint8_t textsize  = 1;
-	uint8_t textdatum = TL_DATUM;
-	int32_t cursor_x  = 0;
-	int32_t cursor_y  = 0;
-	int32_t padX      = 0;         // No padding
-
-	uint8_t textfont = 1;
-	uint16_t textcolor = WHITE;
-	uint16_t textbgcolor = TFT_BLACK;
 
 	Mat img;
 };

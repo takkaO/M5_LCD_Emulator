@@ -53,6 +53,10 @@ uint16_t TFT_Emulator::decodeUTF8(uint8_t* buf, uint16_t* index, uint16_t remain
 	return c; // fall-back to extended ASCII
 }
 
+int16_t TFT_Emulator::textWidth(const char *string) {
+	return textWidth(string, textfont);
+}
+
 int16_t TFT_Emulator::textWidth(const char *string, uint8_t font) {
 	int32_t str_width = 0;
 	//uint16_t uniCode = 0;
