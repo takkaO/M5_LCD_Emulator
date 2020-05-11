@@ -130,15 +130,21 @@ void TFT_Emulator::drawPixel(int16_t x, int16_t y, uint16_t color) {
 }
 
 void TFT_Emulator::drawFastVLine(int32_t x, int32_t y, int32_t h, uint32_t color) {
+	if (h == 0) {
+		return;
+	}
 	Point pt1 = Point(x, y);
-	Point pt2 = Point(x, y + h);
+	Point pt2 = Point(x, y + h - 1);
 	Scalar _color = transposeRGB2BGR(color);
 	line(img, pt1, pt2, _color, 1);
 }
 
 void TFT_Emulator::drawFastHLine(int32_t x, int32_t y, int32_t h, uint32_t color) {
+	if (h == 0) {
+		return;
+	}
 	Point pt1 = Point(x, y);
-	Point pt2 = Point(x + h, y);
+	Point pt2 = Point(x + h - 1, y);
 	Scalar _color = transposeRGB2BGR(color);
 	line(img, pt1, pt2, _color, 1);
 }
@@ -171,16 +177,22 @@ void TFT_Emulator::fillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, 
 }
 
 void TFT_Emulator::drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+	if (w == 0 || h == 0) {
+		return;
+	}
 	Point pt1 = Point(x, y);
-	Point pt2 = Point(x + w, y + h);
+	Point pt2 = Point(x + w - 1, y + h - 1);
 	Scalar _color = transposeRGB2BGR(color);
 
 	rectangle(img, pt1, pt2, _color);
 }
 
 void TFT_Emulator::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+	if (w == 0 || h == 0) {
+		return;
+	}
 	Point pt1 = Point(x, y);
-	Point pt2 = Point(x + w, y + h);
+	Point pt2 = Point(x + w - 1, y + h - 1);
 	Scalar _color = transposeRGB2BGR(color);
 
 	rectangle(img, pt1, pt2, _color, FILLED);
