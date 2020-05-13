@@ -130,7 +130,7 @@ void TFT_Emulator::drawPixel(int16_t x, int16_t y, uint16_t color) {
 }
 
 void TFT_Emulator::drawFastVLine(int32_t x, int32_t y, int32_t h, uint32_t color) {
-	if (h == 0) {
+	if (h <= 0) {
 		return;
 	}
 	Point pt1 = Point(x, y);
@@ -140,7 +140,7 @@ void TFT_Emulator::drawFastVLine(int32_t x, int32_t y, int32_t h, uint32_t color
 }
 
 void TFT_Emulator::drawFastHLine(int32_t x, int32_t y, int32_t h, uint32_t color) {
-	if (h == 0) {
+	if (h <= 0) {
 		return;
 	}
 	Point pt1 = Point(x, y);
