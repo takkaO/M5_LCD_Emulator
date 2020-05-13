@@ -318,8 +318,8 @@ void TFT_Emulator::drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, ui
 		}
 		column[5] = 0;
 
-		uint8_t xp = x;
-		uint8_t yp = y;
+		uint32_t xp = x;
+		uint32_t yp = y;
 		for (uint8_t j = 0; j < 8; j++) {
 			xp = x;
 			for (uint8_t k = 0; k < 5; k++) {
@@ -514,14 +514,14 @@ int16_t TFT_Emulator::drawString(const char* str, int32_t poX, int32_t poY, uint
 
 
 void TFT_Emulator::printf(const char *fmt, ...) {
-	char s[256] = { '\0' };
+	char s[1024] = { '\0' };
 	int len;
 	bool LF_flag = false;
 	va_list ap;
 	uint16_t cheight = 8 * textsize;
 
 	va_start(ap, fmt);
-	len = vsnprintf(s, 256, fmt, ap);
+	len = vsnprintf(s, 1024, fmt, ap);
 	va_end(ap);
 
 
