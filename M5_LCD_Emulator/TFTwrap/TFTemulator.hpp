@@ -89,6 +89,7 @@ public:
 	uint16_t decodeUTF8(uint8_t* buf, uint16_t* index, uint16_t remaining);
 	int16_t textWidth(const char *string);
 	int16_t textWidth(const char *string, uint8_t font);
+	int16_t fontHeight();
 	uint32_t color16to24(uint16_t color);
 	uint16_t color565(uint8_t r, uint8_t g, uint8_t b);
 	void setTextColor(uint16_t color, uint16_t backgroundcolor = TFT_BLACK);
