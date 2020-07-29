@@ -306,6 +306,15 @@ void TFT_Emulator::fillCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t c
 	}
 }
 
+void TFT_Emulator::drawJpg(const uint8_t *jpg_data, size_t jpg_len, uint16_t x, uint16_t y, uint16_t maxWidth, uint16_t maxHeight, uint16_t offX, uint16_t offY, jpeg_div_t scale) {
+	vector<char> _jpg_data;
+	_jpg_data.assign(jpg_data,  jpg_data+jpg_len);
+	Mat decoded_img = imdecode(Mat(_jpg_data), 1);
+
+	cv::Mat mat = (cv::Mat_<double>(2, 3) << 1.0, 0.0, x, 0.0, 1.0, y);
+	warpAffine(decoded_img, img, mat, img.size(), INTER_LINEAR, cv::BORDER_TRANSPARENT);
+}
+
 /* --------------------------------- */
 /*      draw character function      */
 /* --------------------------------- */

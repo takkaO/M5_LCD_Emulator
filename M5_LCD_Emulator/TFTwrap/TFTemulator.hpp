@@ -78,6 +78,15 @@ const uint16_t COLORS[] = { BLACK,NAVY, DARKGREEN, DARKCYAN, MAROON,
 const uint8_t COLORS_NUM = sizeof(COLORS) / sizeof(uint16_t);
 
 
+typedef enum {
+	JPEG_DIV_NONE,
+	JPEG_DIV_2,
+	JPEG_DIV_4,
+	JPEG_DIV_8,
+	JPEG_DIV_MAX
+} jpeg_div_t;
+
+
 class TFT_Emulator {
 public:
 	TFT_Emulator();
@@ -112,6 +121,7 @@ public:
 	void fillEllipse(int16_t x0, int16_t y0, int32_t rx, int32_t ry, uint16_t color = WHITE);
 	void drawCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, uint32_t color);
 	void fillCircleHelper(int32_t x0, int32_t y0, int32_t r, uint8_t cornername, int32_t delta, uint32_t color);
+	void drawJpg(const uint8_t *jpg_data, size_t jpg_len, uint16_t x = 0, uint16_t y = 0, uint16_t maxWidth = 0, uint16_t maxHeight = 0, uint16_t offX = 0, uint16_t offY = 0, jpeg_div_t scale = JPEG_DIV_NONE);
 
 	/* draw character function */
 	void drawChar(int32_t x, int32_t y, uint16_t c, uint32_t color, uint32_t bg, uint32_t size);
